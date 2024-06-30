@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import { unknown, z } from "zod";
+import { z } from "zod";
 
 export const load = async <Schema extends z.ZodTypeAny>(
   filename: string,
