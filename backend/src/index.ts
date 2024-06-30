@@ -8,8 +8,8 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-server.get("/api/items", (req, res) => {
-  const items = load("items", ItemSchema);
+server.get("/api/items", async (req, res) => {
+  const items = await load("items", ItemSchema.array());
   if (!items) return res.sendStatus(500);
 
   res.json(items);

@@ -10,3 +10,5 @@ export const ItemSchema = z.object({
   ordered: z.number(),
   originalPrice: z.number(),
 });
+
+export type Item = z.infer<typeof ItemSchema>;
