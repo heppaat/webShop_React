@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllItems } from "./api";
 import { Item } from "./modell";
+import Items from "./components/Items";
 
 function App() {
   const [items, setItems] = useState<Item[] | null>(null);
@@ -11,31 +12,25 @@ function App() {
     const response = await getAllItems();
     if (!response.success) {
       setError("Failed to fetch all Items");
+      setItems([]);
       return;
     }
     setItems(response.data);
   };
 
-  return (
-    <>
-      <div>
-        <button className="border-4 py-2 px-4" onClick={handleAllItems}>
-          Show items
-        </button>
-      </div>
-      {items && (
-        <div>
-          {items.map((item, index) => (
-            <div key={index}>
-              <p>{item.title}</p>
-              <p>{item.description}</p>
-            </div>
-          ))}
-        </div>
-      )}
-      {error && <p>{error}</p>}
-    </>
-  );
+  useEffect(() => {
+    handleAllItems();
+  }, []);
+
+  let content;
+  if (items === null) {
+    content = <p>Loading...</p>;
+  } else if (error) {
+    content = <p>{error}</p>;
+  } else {
+    content = <Items items={items} />;
+  }
+  return <>{content}</>;
 }
 
 export default App;
