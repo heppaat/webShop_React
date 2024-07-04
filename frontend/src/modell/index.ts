@@ -12,3 +12,8 @@ export const ItemSchema = z.object({
 });
 
 export type Item = z.infer<typeof ItemSchema>;
+
+export type ErrorState = {
+  allItems: string;
+  myBag: string;
+};

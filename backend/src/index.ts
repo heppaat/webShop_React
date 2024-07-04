@@ -15,4 +15,11 @@ server.get("/api/items", async (req, res) => {
   res.json(items);
 });
 
+server.get("/api/bag", async (req, res) => {
+  const bagItems = await load("bag", ItemSchema.array());
+  if (!bagItems) return res.sendStatus(500);
+
+  res.json(bagItems);
+});
+
 server.listen(4001);

@@ -11,6 +11,7 @@ const Items = (props: { items: Item[] }) => {
             <div key={index}>
               <h1 className="bg-[red]">{item.title}</h1>
               <p>{item.description}</p>
+              <button className="border-2">Add to bag</button>
             </div>
           ))}
         </div>

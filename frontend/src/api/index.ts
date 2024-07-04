@@ -8,3 +8,10 @@ export const getAllItems = async () => {
     schema: ItemSchema.array(),
   });
 };
+
+export const getBagItems = async () =>
+  safeFetch({
+    method: "GET",
+    url: "http://localhost:4001/api/bag",
+    schema: ItemSchema.array(),
+  });
