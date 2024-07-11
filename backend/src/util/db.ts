@@ -22,7 +22,7 @@ export const save = async <Schema extends z.ZodTypeAny>(
   schema: Schema
 ): Promise<{ success: boolean }> => {
   try {
-    const path = `${__dirname}/../../database${filename}.json`;
+    const path = `${__dirname}/../../database/${filename}.json`;
     const dataToInsert = schema.parse(data);
     const fileContent = JSON.stringify(dataToInsert, null, 2);
     await fs.writeFile(path, fileContent);

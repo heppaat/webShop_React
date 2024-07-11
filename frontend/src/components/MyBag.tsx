@@ -8,6 +8,8 @@ const MyBag = (props: { myBag: Item[] }) => {
         <div key={index}>
           <h1>{item.title}</h1>
           <p>{item.description}</p>
+          <p>{item.counter}</p>
+          <p>{item.price}</p>
           <button className="border-2">+</button>
           <button className="border-2">-</button>
         </div>
