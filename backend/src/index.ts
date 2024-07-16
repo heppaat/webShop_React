@@ -26,6 +26,7 @@ server.post("/api/bag", async (req, res) => {
   const result = ItemSchema.safeParse(req.body);
 
   if (!result.success) return res.status(400).json(result.error.issues);
+
   const validatedNewItem = result.data;
 
   const bagItems = await load("bag", ItemSchema.array());
@@ -36,27 +37,25 @@ server.post("/api/bag", async (req, res) => {
   if (existingItem) {
     const updatedBagItems = bagItems.map((item) => {
       if (item.id === existingItem.id) {
-        item.counter++;
-        item.price = item.originalPrice + item.price;
-        return item;
+        return {
+          ...item,
+          counter: item.counter + 1,
+          price: item.price + item.originalPrice,
+        };
       }
       return item;
     });
 
-    const isSuccessfull = await save(
-      "bag",
-      updatedBagItems,
-      ItemSchema.array()
-    );
-    if (!isSuccessfull) return res.sendStatus(500);
+    const isSuccessful = await save("bag", updatedBagItems, ItemSchema.array());
+    if (!isSuccessful) return res.sendStatus(500);
     res.json("added");
   } else {
-    validatedNewItem.counter++;
+    validatedNewItem.counter = 1;
 
     const newBagItems = [...bagItems, { ...validatedNewItem }];
 
-    const isSuccessfull = await save("bag", newBagItems, ItemSchema.array());
-    if (!isSuccessfull) return res.sendStatus(500);
+    const isSuccessful = await save("bag", newBagItems, ItemSchema.array());
+    if (!isSuccessful) return res.sendStatus(500);
     res.json("added");
   }
 });

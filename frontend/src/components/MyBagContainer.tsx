@@ -3,7 +3,8 @@ import { Item } from "../modell";
 import { getBagItems } from "../api";
 import MyBag from "./MyBag";
 
-const MyBagContainer = () => {
+const MyBagContainer = (props: { addToBag: (item: Item) => void }) => {
+  const { addToBag } = props;
   const [myBag, setMyBag] = useState<Item[]>([]);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -30,7 +31,7 @@ const MyBagContainer = () => {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <MyBag myBag={myBag} />
+        <MyBag myBag={myBag} addToBag={addToBag} />
       )}
     </>
   );

@@ -2,21 +2,11 @@
   {
     "id": 1,
     "title": "Mens Casual Slim Fit",
-    "price": 30,
+    "price": 60,
     "description": "The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.",
     "image": "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
-    "counter": 2,
+    "counter": 4,
     "ordered": 0,
     "originalPrice": 15
-  },
-  {
-    "id": 2,
-    "title": "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket",
-    "price": 59.9,
-    "description": "100% POLYURETHANE(shell) 100% POLYESTER(lining) 75% POLYESTER 25% COTTON (SWEATER), Faux leather material for style and comfort / 2 pockets of front, 2-For-One Hooded denim style faux leather jacket, Button detail on waist / Detail stitching at sides, HAND WASH ONLY / DO NOT BLEACH / LINE DRY / DO NOT IRON",
-    "image": "https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg",
-    "counter": 2,
-    "ordered": 0,
-    "originalPrice": 29.95
   }
 ]
