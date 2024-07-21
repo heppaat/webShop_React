@@ -11,10 +11,10 @@ type Response<Type> =
       status: number | null;
     };
 
-type Methods = "GET" | "POST" | "PATCH" | "DELETE";
+type Method = "GET" | "POST" | "DELETE" | "PATCH";
 
 export const safeFetch = async <Schema extends z.ZodTypeAny>(config: {
-  method: Methods;
+  method: Method;
   url: string;
   schema: Schema;
   payload?: unknown;

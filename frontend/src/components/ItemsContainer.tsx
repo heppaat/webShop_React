@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { Item } from "../modell";
-import Items from "./Items";
 import { getAllItems } from "../api";
+import Items from "./Items";
 
-const ItemsContainer = (props: { addToBag: (item: Item) => void }) => {
-  const { addToBag } = props;
+const ItemsContainer = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleAllItems = async () => {
+  const fetchAllItems = async () => {
     setLoading(true);
+    setError("");
     const response = await getAllItems();
     setLoading(false);
     if (!response.success) {
@@ -21,7 +21,7 @@ const ItemsContainer = (props: { addToBag: (item: Item) => void }) => {
   };
 
   useEffect(() => {
-    handleAllItems();
+    fetchAllItems();
   }, []);
 
   return (
@@ -31,7 +31,7 @@ const ItemsContainer = (props: { addToBag: (item: Item) => void }) => {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <Items items={items} addToBag={addToBag} />
+        <Items items={items} />
       )}
     </>
   );

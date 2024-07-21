@@ -48,7 +48,7 @@ server.post("/api/bag", async (req, res) => {
 
     const isSuccessful = await save("bag", updatedBagItems, ItemSchema.array());
     if (!isSuccessful) return res.sendStatus(500);
-    res.json("added");
+    res.json({ success: true });
   } else {
     validatedNewItem.counter = 1;
 
@@ -56,7 +56,7 @@ server.post("/api/bag", async (req, res) => {
 
     const isSuccessful = await save("bag", newBagItems, ItemSchema.array());
     if (!isSuccessful) return res.sendStatus(500);
-    res.json("added");
+    res.json({ success: true });
   }
 });
 

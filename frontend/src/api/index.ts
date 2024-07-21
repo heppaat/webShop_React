@@ -1,27 +1,26 @@
 import { safeFetch } from "../lib/http";
 import { ItemSchema } from "../modell";
 import { Item } from "../modell";
+import { z } from "zod";
 
-export const getAllItems = async () => {
-  return safeFetch({
+export const getAllItems = () =>
+  safeFetch({
     method: "GET",
     url: "http://localhost:4001/api/items",
     schema: ItemSchema.array(),
   });
-};
 
-export const getBagItems = async () =>
+export const getBagItems = () =>
   safeFetch({
     method: "GET",
     url: "http://localhost:4001/api/bag",
     schema: ItemSchema.array(),
   });
 
-export const addToBag = async (item: Item) => {
-  return safeFetch({
+export const addToBag = (item: Item) =>
+  safeFetch({
     method: "POST",
     url: "http://localhost:4001/api/bag",
-    schema: ItemSchema,
+    schema: z.object({ success: z.boolean() }),
     payload: item,
   });
-};
