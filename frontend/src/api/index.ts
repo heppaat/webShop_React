@@ -24,3 +24,17 @@ export const addToBag = (item: Item) =>
     schema: z.object({ success: z.boolean() }),
     payload: item,
   });
+
+export const deleteItemFromBag = (id: number) =>
+  safeFetch({
+    method: "DELETE",
+    url: `http://localhost:4001/api/bag/${id}`,
+    schema: z.object({ success: z.boolean() }),
+  });
+
+export const deleteAllFromBag = () =>
+  safeFetch({
+    method: "DELETE",
+    url: "http://localhost:4001/api/bag",
+    schema: z.object({ success: z.boolean() }),
+  });

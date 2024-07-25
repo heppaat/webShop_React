@@ -9,6 +9,8 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
+const roundToTwoDecimals = (num: number) => Math.round(num * 100) / 100;
+
 server.get("/api/items", async (req, res) => {
   const items = await load("items", ItemSchema.array());
   if (!items) return res.sendStatus(500);
@@ -41,7 +43,7 @@ server.post("/api/bag", async (req, res) => {
         return {
           ...item,
           counter: item.counter + 1,
-          price: item.price + item.originalPrice,
+          price: roundToTwoDecimals(item.price + item.originalPrice),
         };
       }
       return item;
@@ -69,7 +71,7 @@ server.delete("/api/bag/:id", async (req, res) => {
   const id = req.params.id;
   const result = z.coerce.number().safeParse(id);
 
-  if (!result.success) return res.sendStatus(400).json(result.error.issues);
+  if (!result.success) return res.status(400).json(result.error.issues);
 
   const itemToDeleteId = result.data;
 
@@ -85,7 +87,7 @@ server.delete("/api/bag/:id", async (req, res) => {
           return {
             ...item,
             counter: item.counter - 1,
-            price: item.price - item.originalPrice,
+            price: roundToTwoDecimals(item.price - item.originalPrice),
           };
         }
         return item;
@@ -111,8 +113,15 @@ server.delete("/api/bag/:id", async (req, res) => {
       res.json({ success: true });
     }
   } else {
-    return res.sendStatus(500);
+    return res.sendStatus(404);
   }
+});
+
+server.delete("/api/bag", async (req, res) => {
+  const emptyBag: (typeof ItemSchema)[] = [];
+  const isSuccessfull = await save("bag", emptyBag, ItemSchema.array());
+  if (!isSuccessfull) return res.sendStatus(500);
+  res.json({ success: true });
 });
 
 server.listen(4001);

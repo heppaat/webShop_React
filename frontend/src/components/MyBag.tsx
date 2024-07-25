@@ -3,10 +3,18 @@ import { Item } from "../modell";
 const MyBag = (props: {
   myBag: Item[];
   plusButtonClick: (item: Item) => void;
+  minusButtonClick: (id: number) => void;
+  clearMyBag: () => void;
 }) => {
-  const { myBag, plusButtonClick } = props;
+  const { myBag, plusButtonClick, minusButtonClick, clearMyBag } = props;
+
   return (
     <>
+      <div>
+        <button className="border-2" onClick={clearMyBag}>
+          Clear My Bag
+        </button>
+      </div>
       {myBag.map((item) => (
         <div key={item.id}>
           <h1>{item.title}</h1>
@@ -16,7 +24,12 @@ const MyBag = (props: {
           <button className="border-2" onClick={() => plusButtonClick(item)}>
             +
           </button>
-          <button className="border-2">-</button>
+          <button
+            className="border-2"
+            onClick={() => minusButtonClick(item.id)}
+          >
+            -
+          </button>
         </div>
       ))}
     </>

@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { Item } from "../modell";
-import { addToBag, getBagItems } from "../api";
+import {
+  addToBag,
+  getBagItems,
+  deleteItemFromBag,
+  deleteAllFromBag,
+} from "../api";
 import MyBag from "./MyBag";
 
 const MyBagContainer = () => {
@@ -30,6 +35,18 @@ const MyBagContainer = () => {
     await fetchBagItems();
   };
 
+  const handleMinusButton = async (id: number) => {
+    const response = await deleteItemFromBag(id);
+    if (!response.success) return;
+    await fetchBagItems();
+  };
+
+  const handleClearMyBag = async () => {
+    const response = await deleteAllFromBag();
+    if (!response.success) return;
+    await fetchBagItems();
+  };
+
   return (
     <>
       {loading ? (
@@ -37,7 +54,12 @@ const MyBagContainer = () => {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <MyBag myBag={myBag} plusButtonClick={handlePlusButton} />
+        <MyBag
+          myBag={myBag}
+          plusButtonClick={handlePlusButton}
+          minusButtonClick={handleMinusButton}
+          clearMyBag={handleClearMyBag}
+        />
       )}
     </>
   );
