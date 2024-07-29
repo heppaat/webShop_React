@@ -15,23 +15,28 @@ const MyBag = (props: {
           Clear My Bag
         </button>
       </div>
-      {myBag.map((item) => (
-        <div key={item.id}>
-          <h1>{item.title}</h1>
-          <p>{item.description}</p>
-          <p>{item.counter}</p>
-          <p>{item.price}</p>
-          <button className="border-2" onClick={() => plusButtonClick(item)}>
-            +
-          </button>
-          <button
-            className="border-2"
-            onClick={() => minusButtonClick(item.id)}
+      <div className="flex flex-wrap gap-8 p-10 justify-center">
+        {myBag.map((item) => (
+          <div
+            key={item.id}
+            className="bg-[#f0f0f0] shadow-lg rounded-lg p-4 w-60"
           >
-            -
-          </button>
-        </div>
-      ))}
+            <h1 className="bg-[red]">{item.title}</h1>
+            <p>{item.description}</p>
+            <p>{item.counter}</p>
+            <p>{item.price}</p>
+            <button className="border-2" onClick={() => plusButtonClick(item)}>
+              +
+            </button>
+            <button
+              className="border-2"
+              onClick={() => minusButtonClick(item.id)}
+            >
+              -
+            </button>
+          </div>
+        ))}
+      </div>
     </>
   );
 };
